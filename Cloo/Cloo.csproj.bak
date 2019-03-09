@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A20D6AAB-805A-4B37-BBBA-2A87BD444902}</ProjectGuid>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cloo</RootNamespace>
+    <AssemblyName>Cloo</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <AndroidLibrary>True</AndroidLibrary>
+    <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
+    <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
+    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
+    <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidLinkMode>None</AndroidLinkMode>
+    <ConsolePause>false</ConsolePause>
+    <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
+    <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+    <BundleAssemblies>False</BundleAssemblies>
+    <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+    <JavaMaximumHeapSize>1G</JavaMaximumHeapSize>
+    <Debugger>Xamarin</Debugger>
+    <AotAssemblies>False</AotAssemblies>
+    <EnableLLVM>False</EnableLLVM>
+    <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
+    <EnableProguard>False</EnableProguard>
+    <MonoDroidExtraArgs>android:largeHeap="true"</MonoDroidExtraArgs>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
+    <ConsolePause>false</ConsolePause>
+    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+    <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+    <BundleAssemblies>False</BundleAssemblies>
+    <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+    <Debugger>Xamarin</Debugger>
+    <AotAssemblies>False</AotAssemblies>
+    <EnableLLVM>False</EnableLLVM>
+    <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
+    <EnableProguard>False</EnableProguard>
+    <DebugSymbols>False</DebugSymbols>
+    <AndroidSupportedAbis>armeabi;armeabi-v7a;x86;x86_64;arm64-v8a</AndroidSupportedAbis>
+    <MonoDroidExtraArgs>android:largeHeap="true"</MonoDroidExtraArgs>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Mono.Android" />
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Capture\CaptureDevice.cs" />
+    <Compile Include="Capture\CaptureExtensions.cs" />
+    <Compile Include="Capture\CaptureGrabber.cs" />
+    <Compile Include="Capture\CaptureInterfaces.cs" />
+    <Compile Include="ClooBuffer.cs" />
+    <Compile Include="ClooCommandQueue.cs" />
+    <Compile Include="ClooContext.cs" />
+    <Compile Include="ClooDevice.cs" />
+    <Compile Include="ClooEvent.cs" />
+    <Compile Include="ClooExtensions.cs" />
+    <Compile Include="ClooKernel.cs" />
+    <Compile Include="ClooProgram.cs" />
+    <Compile Include="Cloo\Bindings\CL10.cs" />
+    <Compile Include="Cloo\Bindings\CL11.cs" />
+    <Compile Include="Cloo\Bindings\Clx.cs" />
+    <Compile Include="Cloo\Bindings\Enums.cs" />
+    <Compile Include="Cloo\BufferRegion.cs" />
+    <Compile Include="Cloo\ComputeBuffer.cs" />
+    <Compile Include="Cloo\ComputeBufferBase.cs" />
+    <Compile Include="Cloo\ComputeCommandQueue.Added.cs" />
+    <Compile Include="Cloo\ComputeCommandQueue.cs" />
+    <Compile Include="Cloo\ComputeCommandQueue.Obsolete.cs" />
+    <Compile Include="Cloo\ComputeCompiler.cs" />
+    <Compile Include="Cloo\ComputeContext.cs" />
+    <Compile Include="Cloo\ComputeContextProperty.cs" />
+    <Compile Include="Cloo\ComputeContextPropertyList.cs" />
+    <Compile Include="Cloo\ComputeDevice.cs" />
+    <Compile Include="Cloo\ComputeEvent.cs" />
+    <Compile Include="Cloo\ComputeEventBase.cs" />
+    <Compile Include="Cloo\ComputeEventList.cs" />
+    <Compile Include="Cloo\ComputeException.cs" />
+    <Compile Include="Cloo\ComputeImage.cs" />
+    <Compile Include="Cloo\ComputeImage2D.cs" />
+    <Compile Include="Cloo\ComputeImage3D.cs" />
+    <Compile Include="Cloo\ComputeImageFormat.cs" />
+    <Compile Include="Cloo\ComputeKernel.cs" />
+    <Compile Include="Cloo\ComputeMemory.cs" />
+    <Compile Include="Cloo\ComputeObject.cs" />
+    <Compile Include="Cloo\ComputePlatform.cs" />
+    <Compile Include="Cloo\ComputeProgram.cs" />
+    <Compile Include="Cloo\ComputeResource.cs" />
+    <Compile Include="Cloo\ComputeSampler.cs" />
+    <Compile Include="Cloo\ComputeSubBuffer.cs" />
+    <Compile Include="Cloo\ComputeUserEvent.cs" />
+    <Compile Include="Cloo\SysIntX2.cs" />
+    <Compile Include="Cloo\SysIntX3.cs" />
+    <Compile Include="Cloo\Tools.cs" />
+    <Compile Include="Imaging\ClooImage2D.cs" />
+    <Compile Include="Imaging\ClooImage2DByteA.cs" />
+    <Compile Include="Imaging\ClooImage2DByteRgbA.cs" />
+    <Compile Include="Imaging\ClooImage2DFloatA.cs" />
+    <Compile Include="Imaging\ClooImage2DFloatRgbA.cs" />
+    <Compile Include="Imaging\ClooImage2DUIntA.cs" />
+    <Compile Include="Imaging\ClooImageFormat.cs" />
+    <Compile Include="Imaging\ClooImageFormatConverter.cs" />
+    <Compile Include="Imaging\ClooSampler.cs" />
+    <Compile Include="Imaging\CpuBuffer.cs" />
+    <Compile Include="Imaging\CpuImage2D.cs" />
+    <Compile Include="Imaging\CpuImage2DByteA.cs" />
+    <Compile Include="Imaging\CpuImage2DByteRgbA.cs" />
+    <Compile Include="Imaging\CpuImage2DFloatA.cs" />
+    <Compile Include="Imaging\CpuImage2DFloatRgbA.cs" />
+    <Compile Include="Imaging\CpuImage2DRgbA.cs" />
+    <Compile Include="Imaging\CpuImage2DUIntA.cs" />
+    <Compile Include="Imaging\IBuffer.cs" />
+    <Compile Include="Imaging\IImage2D.cs" />
+    <Compile Include="Imaging\IImage2DByte.cs" />
+    <Compile Include="Imaging\IImage2DByteA.cs" />
+    <Compile Include="Imaging\IImage2DByteRgbA.cs" />
+    <Compile Include="Imaging\IImage2DFloat.cs" />
+    <Compile Include="Imaging\IImage2DFloatA.cs" />
+    <Compile Include="Imaging\IImage2DFloatRgbA.cs" />
+    <Compile Include="Imaging\IImage2DUInt.cs" />
+    <Compile Include="Imaging\IImage2DUIntA.cs" />
+    <Compile Include="Kernels\Core\ClooProgramCore.cs" />
+    <Compile Include="Kernels\Core\CpuProgramCore.cs" />
+    <Compile Include="Kernels\Imaging\ClooProgramImaging.cs" />
+    <Compile Include="Kernels\Imaging\CpuProgramImaging.cs" />
+    <Compile Include="Kernels\ViolaJones\BaseHaarObjectDetector.cs" />
+    <Compile Include="Kernels\ViolaJones\ClooHaarObjectDetector.cs" />
+    <Compile Include="Kernels\ViolaJones\ClooProgramViolaJones.cs" />
+    <Compile Include="Kernels\ViolaJones\CpuHaarObjectDetector.cs" />
+    <Compile Include="Kernels\ViolaJones\CpuProgramViolaJones.cs" />
+    <Compile Include="Kernels\ViolaJones\HaarExtensions.cs" />
+    <Compile Include="Kernels\ViolaJones\HaarFeatureNode.cs" />
+    <Compile Include="Kernels\ViolaJones\HaarRectangle.cs" />
+    <Compile Include="Kernels\ViolaJones\ScalingMode.cs" />
+    <Compile Include="LocalSize.cs" />
+    <Compile Include="ParallelProcessor.cs" />
+    <Compile Include="Resources\Resource.Designer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Triple.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Kernels\Core\CoreByteSetValue.cl" />
+    <EmbeddedResource Include="Kernels\Core\CoreFloatSetValue.cl" />
+    <EmbeddedResource Include="Kernels\Core\CoreUIntSetValue.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageByteAToByteRgbA.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageByteBoxBlur.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageByteExtractChannel.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageByteFlipX.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageByteFlipY.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageByteGrayScale.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageByteGrayScaleFloat.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageByteHistogram256.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageByteHslToRgb.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageByteRgbHistogramN.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageByteRgbToHsl.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageByteSetChannel.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageByteSetChannelConstant.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageByteSetValueA.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageByteSetValueRgbA.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageByteSobel.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageByteSwapChannel.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageByteToFloat.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageFloatAbs.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageFloatAddValue.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageFloatBoxBlur.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageFloatClamp.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageFloatDiff.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageFloatExtractChannel.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageFloatFlipX.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageFloatFlipY.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageFloatGrayScale.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageFloatHslToRgb.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageFloatHslToRgbNorm.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageFloatIntegral.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageFloatIntegralSquare.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageFloatIntegralSquareStep1.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageFloatIntegralStep1.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageFloatMultiplyValue.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageFloatRgbToHsl.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageFloatRgbToHslNorm.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageFloatSetChannel.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageFloatSetChannelConstant.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageFloatSetValue.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageFloatSobel.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageFloatSwapChannel.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageFloatToByte.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageFloatToByteNorm.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageUIntIntegral.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageUIntIntegralSquare.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageUIntIntegralSquareStep1.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageUIntIntegralStep1.cl" />
+    <EmbeddedResource Include="Kernels\Imaging\ImageUIntSetValueA.cl" />
+    <EmbeddedResource Include="Kernels\ViolaJones\Header.cl" />
+    <EmbeddedResource Include="Kernels\ViolaJones\ImageViolaJonesClear.cl" />
+    <EmbeddedResource Include="Kernels\ViolaJones\ImageViolaJonesProcess.cl" />
+    <None Include="Resources\AboutResources.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Values\Strings.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\AndroidManifest.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

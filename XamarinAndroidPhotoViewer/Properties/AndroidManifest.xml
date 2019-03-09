@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="1.0.11" package="com.advancedkernels.blurate" android:label="blurate" android:name="blurate" android:installLocation="auto" android:largeHeap="true" android:icon="@drawable/icon" android:versionCode="12">
+	<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="27" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.CAMERA" />
+	<uses-feature android:name="android.hardware.camera" android:required="false" />
+	<uses-feature android:name="android.hardware.camera.front" android:required="false" />
+	<uses-feature android:name="android.hardware.camera.back" android:required="false" />
+	<application android:hardwareAccelerated="true" android:allowBackup="true" android:largeHeap="true" android:theme="@*android:style/Theme.NoTitleBar" android:label="blurate" android:icon="@drawable/Icon">
+		<receiver android:name="com.advancedkernels.blurate.ScreenOnOffReceiver" android:enabled="true" android:exported="false"></receiver>
+		<receiver android:name="com.advancedkernels.blurate.CameraReciver" android:enabled="true">
+			<intent-filter>
+				<action android:name="com.android.camera.NEW_PICTURE" />
+				<action android:name="android.hardware.action.NEW_PICTURE" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<data android:mimeType="image/*" />
+			</intent-filter>
+		</receiver>
+		<activity android:name="advkern.blurate" android:label="OpenFileAuto" android:noHistory="true">
+			<!-- For email -->
+			<intent-filter android:icon="@drawable/icon" android:label="blurate" android:priority="1">
+				<action android:name="android.intent.action.VIEW" />
+				<action android:name="android.intent.action.PICK" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="content" android:mimeType="application/octet-stream" android:pathPattern=".*\\.blrtfltr" />
+				<data android:scheme="content" android:mimeType="application/octet-stream" android:pathPattern=".*\\..*\\.blrtfltr" />
+			</intent-filter>
+			<!-- For http -->
+			<intent-filter android:icon="@drawable/icon" android:label="blurate" android:priority="1">
+				<action android:name="android.intent.action.VIEW" />
+				<action android:name="android.intent.action.PICK" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="http" />
+				<data android:host="*" />
+				<data android:pathPattern=".*\\.blrtfltr" />
+				<data android:pathPattern=".*\\..*\\.blrtfltr" />
+				<data android:pathPattern=".*\\..*\\..*\\.blrtfltr" />
+				<data android:pathPattern=".*\\..*\\..*\\..*\\.blrtfltr" />
+				<data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.blrtfltr" />
+				<data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.blrtfltr" />
+				<data android:mimeType="*/*" />
+			</intent-filter>
+			<!-- For https -->
+			<intent-filter android:icon="@drawable/icon" android:label="blurate" android:priority="1">
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="https" />
+				<data android:host="*" />
+				<data android:pathPattern=".*\\.blrtfltr" />
+				<data android:pathPattern=".*\\..*\\.blrtfltr" />
+				<data android:pathPattern=".*\\..*\\..*\\.blrtfltr" />
+				<data android:pathPattern=".*\\..*\\..*\\..*\\.blrtfltr" />
+				<data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.blrtfltr" />
+				<data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.blrtfltr" />
+				<data android:mimeType="*/*" />
+			</intent-filter>
+			<!-- For file browsers and google drive -->
+			<intent-filter android:icon="@drawable/icon" android:label="blurate" android:priority="1">
+				<action android:name="android.intent.action.VIEW" />
+				<action android:name="android.intent.action.PICK" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="file" android:mimeType="*/*" android:pathPattern=".*\\.blrtfltr" android:host="*" />
+				<data android:scheme="file" android:mimeType="*/*" android:pathPattern=".*\\..*\\.blrtfltr" android:host="*" />
+				<data android:scheme="file" android:mimeType="*/*" android:pathPattern=".*\\..*\\..*\\.blrtfltr" android:host="*" />
+				<data android:scheme="file" android:mimeType="*/*" android:pathPattern=".*\\..*\\..*\\..*\\.blrtfltr" android:host="*" />
+				<data android:mimeType="*/*" />
+			</intent-filter>
+			<intent-filter android:icon="@drawable/icon" android:label="blurate" android:priority="1">
+				<action android:name="android.intent.action.VIEW" />
+				<action android:name="android.intent.action.PICK" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:mimeType="image/*" />
+			</intent-filter>
+      <intent-filter android:icon="@drawable/icon" android:label="blurate" >
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data android:scheme="content" />
+        <data android:mimeType="*/*" />
+        <data android:pathPattern=".*\\.blrtfltr" />
+        <data android:pathPattern=".*\\..*\\.blrtfltr" />
+        <data android:pathPattern=".*\\..*\\..*\\.blrtfltr" />
+        <data android:pathPattern=".*\\..*\\..*\\..*\\.blrtfltr" />
+        <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.blrtfltr" />
+      </intent-filter>
+		</activity>
+	</application>
+</manifest>
