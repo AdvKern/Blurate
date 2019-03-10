@@ -33,8 +33,8 @@ namespace Blurate
 		public partial class Array
 		{
 			
-			// aapt resource value: 0x7f050000
-			public const int country_arrays = 2131034112;
+			// aapt resource value: 0x7f060000
+			public const int country_arrays = 2131099648;
 			
 			static Array()
 			{
@@ -102,80 +102,80 @@ namespace Blurate
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f070005
-			public const int bottomRel = 2131165189;
+			// aapt resource value: 0x7f080005
+			public const int bottomRel = 2131230725;
 			
-			// aapt resource value: 0x7f070003
-			public const int camButton = 2131165187;
+			// aapt resource value: 0x7f080003
+			public const int camButton = 2131230723;
 			
-			// aapt resource value: 0x7f07000b
-			public const int current_kernel = 2131165195;
+			// aapt resource value: 0x7f08000b
+			public const int current_kernel = 2131230731;
 			
-			// aapt resource value: 0x7f070018
-			public const int extract_visible_bitmap = 2131165208;
+			// aapt resource value: 0x7f080018
+			public const int extract_visible_bitmap = 2131230744;
 			
-			// aapt resource value: 0x7f070008
-			public const int importButton = 2131165192;
+			// aapt resource value: 0x7f080008
+			public const int importButton = 2131230728;
 			
-			// aapt resource value: 0x7f070000
-			public const int iv_blank = 2131165184;
+			// aapt resource value: 0x7f080000
+			public const int iv_blank = 2131230720;
 			
-			// aapt resource value: 0x7f070001
-			public const int iv_photo = 2131165185;
+			// aapt resource value: 0x7f080001
+			public const int iv_photo = 2131230721;
 			
-			// aapt resource value: 0x7f070002
-			public const int iv_surf = 2131165186;
+			// aapt resource value: 0x7f080002
+			public const int iv_surf = 2131230722;
 			
-			// aapt resource value: 0x7f070017
-			public const int menu_matrix_capture = 2131165207;
+			// aapt resource value: 0x7f080017
+			public const int menu_matrix_capture = 2131230743;
 			
-			// aapt resource value: 0x7f070016
-			public const int menu_matrix_restore = 2131165206;
+			// aapt resource value: 0x7f080016
+			public const int menu_matrix_restore = 2131230742;
 			
-			// aapt resource value: 0x7f07000d
-			public const int menu_scale_fit_center = 2131165197;
+			// aapt resource value: 0x7f08000d
+			public const int menu_scale_fit_center = 2131230733;
 			
-			// aapt resource value: 0x7f07000f
-			public const int menu_scale_fit_end = 2131165199;
+			// aapt resource value: 0x7f08000f
+			public const int menu_scale_fit_end = 2131230735;
 			
-			// aapt resource value: 0x7f07000e
-			public const int menu_scale_fit_start = 2131165198;
+			// aapt resource value: 0x7f08000e
+			public const int menu_scale_fit_start = 2131230734;
 			
-			// aapt resource value: 0x7f070010
-			public const int menu_scale_fit_xy = 2131165200;
+			// aapt resource value: 0x7f080010
+			public const int menu_scale_fit_xy = 2131230736;
 			
-			// aapt resource value: 0x7f070015
-			public const int menu_scale_random = 2131165205;
+			// aapt resource value: 0x7f080015
+			public const int menu_scale_random = 2131230741;
 			
-			// aapt resource value: 0x7f070014
-			public const int menu_scale_random_animate = 2131165204;
+			// aapt resource value: 0x7f080014
+			public const int menu_scale_random_animate = 2131230740;
 			
-			// aapt resource value: 0x7f070011
-			public const int menu_scale_scale_center = 2131165201;
+			// aapt resource value: 0x7f080011
+			public const int menu_scale_scale_center = 2131230737;
 			
-			// aapt resource value: 0x7f070012
-			public const int menu_scale_scale_center_crop = 2131165202;
+			// aapt resource value: 0x7f080012
+			public const int menu_scale_scale_center_crop = 2131230738;
 			
-			// aapt resource value: 0x7f070013
-			public const int menu_scale_scale_center_inside = 2131165203;
+			// aapt resource value: 0x7f080013
+			public const int menu_scale_scale_center_inside = 2131230739;
 			
-			// aapt resource value: 0x7f07000c
-			public const int menu_zoom_toggle = 2131165196;
+			// aapt resource value: 0x7f08000c
+			public const int menu_zoom_toggle = 2131230732;
 			
-			// aapt resource value: 0x7f070006
-			public const int myButton = 2131165190;
+			// aapt resource value: 0x7f080006
+			public const int myButton = 2131230726;
 			
-			// aapt resource value: 0x7f070009
-			public const int myShareButton = 2131165193;
+			// aapt resource value: 0x7f080009
+			public const int myShareButton = 2131230729;
 			
-			// aapt resource value: 0x7f07000a
-			public const int snapButton = 2131165194;
+			// aapt resource value: 0x7f08000a
+			public const int snapButton = 2131230730;
 			
-			// aapt resource value: 0x7f070007
-			public const int spinner1 = 2131165191;
+			// aapt resource value: 0x7f080007
+			public const int spinner1 = 2131230727;
 			
-			// aapt resource value: 0x7f070004
-			public const int tv_current_matrix = 2131165188;
+			// aapt resource value: 0x7f080004
+			public const int tv_current_matrix = 2131230724;
 			
 			static Id()
 			{
@@ -206,8 +206,8 @@ namespace Blurate
 		public partial class Menu
 		{
 			
-			// aapt resource value: 0x7f060000
-			public const int main_menu = 2131099648;
+			// aapt resource value: 0x7f070000
+			public const int main_menu = 2131165184;
 			
 			static Menu()
 			{
@@ -222,17 +222,17 @@ namespace Blurate
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f040001
-			public const int ApplicationName = 2130968577;
+			// aapt resource value: 0x7f050001
+			public const int ApplicationName = 2131034113;
 			
-			// aapt resource value: 0x7f040000
-			public const int Hello = 2130968576;
+			// aapt resource value: 0x7f050000
+			public const int Hello = 2131034112;
 			
-			// aapt resource value: 0x7f040002
-			public const int country_prompt = 2130968578;
+			// aapt resource value: 0x7f050002
+			public const int country_prompt = 2131034114;
 			
-			// aapt resource value: 0x7f040003
-			public const int main_krnls = 2130968579;
+			// aapt resource value: 0x7f050003
+			public const int main_krnls = 2131034115;
 			
 			static String()
 			{
@@ -240,6 +240,22 @@ namespace Blurate
 			}
 			
 			private String()
+			{
+			}
+		}
+		
+		public partial class Xml
+		{
+			
+			// aapt resource value: 0x7f040000
+			public const int provider_paths = 2130968576;
+			
+			static Xml()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Xml()
 			{
 			}
 		}

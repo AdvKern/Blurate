@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="1.0.11" package="com.advancedkernels.blurate" android:label="blurate" android:name="blurate" android:installLocation="auto" android:largeHeap="true" android:icon="@drawable/icon" android:versionCode="12">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="1.0.12" package="com.advancedkernels.blurate" android:label="blurate" android:name="blurate" android:installLocation="auto" android:largeHeap="true" android:icon="@drawable/icon" android:versionCode="13">
 	<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="27" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
@@ -11,6 +11,9 @@
 	<uses-feature android:name="android.hardware.camera.front" android:required="false" />
 	<uses-feature android:name="android.hardware.camera.back" android:required="false" />
 	<application android:hardwareAccelerated="true" android:allowBackup="true" android:largeHeap="true" android:theme="@*android:style/Theme.NoTitleBar" android:label="blurate" android:icon="@drawable/Icon">
+		<provider android:name="android.support.v4.content.FileProvider" android:authorities="com.advancedkernels.blurate.provider" android:exported="false" android:grantUriPermissions="true">
+			<meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/provider_paths" />
+		</provider>
 		<receiver android:name="com.advancedkernels.blurate.ScreenOnOffReceiver" android:enabled="true" android:exported="false"></receiver>
 		<receiver android:name="com.advancedkernels.blurate.CameraReciver" android:enabled="true">
 			<intent-filter>
@@ -79,18 +82,18 @@
 				<category android:name="android.intent.category.BROWSABLE" />
 				<data android:mimeType="image/*" />
 			</intent-filter>
-      <intent-filter android:icon="@drawable/icon" android:label="blurate" >
-        <action android:name="android.intent.action.VIEW" />
-        <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.BROWSABLE" />
-        <data android:scheme="content" />
-        <data android:mimeType="*/*" />
-        <data android:pathPattern=".*\\.blrtfltr" />
-        <data android:pathPattern=".*\\..*\\.blrtfltr" />
-        <data android:pathPattern=".*\\..*\\..*\\.blrtfltr" />
-        <data android:pathPattern=".*\\..*\\..*\\..*\\.blrtfltr" />
-        <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.blrtfltr" />
-      </intent-filter>
+			<intent-filter android:icon="@drawable/icon" android:label="blurate">
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="content" />
+				<data android:mimeType="*/*" />
+				<data android:pathPattern=".*\\.blrtfltr" />
+				<data android:pathPattern=".*\\..*\\.blrtfltr" />
+				<data android:pathPattern=".*\\..*\\..*\\.blrtfltr" />
+				<data android:pathPattern=".*\\..*\\..*\\..*\\.blrtfltr" />
+				<data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.blrtfltr" />
+			</intent-filter>
 		</activity>
 	</application>
 </manifest>

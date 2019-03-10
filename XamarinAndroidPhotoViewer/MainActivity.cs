@@ -340,8 +340,11 @@ namespace Blurate
         void Android.Hardware.Camera.IPreviewCallback.OnPreviewFrame(byte[] data, Android.Hardware.Camera thisCamera)
         {
 
-            if (((_capThread != null) && _capThread.IsBusy) || (curCamera == null))
+            if (((_capThread != null) && _capThread.IsBusy) || (thisCamera == null))
+            {
+                thisCamera.AddCallbackBuffer(data);
                 return;
+            }
 
 
             curCamera = thisCamera;
@@ -359,6 +362,7 @@ namespace Blurate
                 };
                 _capThread.RunWorkerCompleted += (sender, args) =>
                 {
+                    if (thisCamera != null) thisCamera.AddCallbackBuffer(data);
                     //if (args.Error != null)  // if an exception occurred during DoWork,
                     //    MessageBox.Show(args.Error.ToString());  // do your error handling here
                     Android.Hardware.Camera.CameraInfo info = new Android.Hardware.Camera.CameraInfo();
@@ -404,7 +408,7 @@ namespace Blurate
                             lastOrient = nowOrient;
                             mImageView.SetPhotoViewRotation(lastOrient);
                         }
-                        mImageView.SetImageDrawable(_bitmapImage1);
+                        mImageView.SetImageDrawable(lastVidBitmapImage);
                     }
                 };
             }
@@ -462,11 +466,8 @@ namespace Blurate
                     curImg = mBitmap;
                     return;
 
-
-
-
                 //LogManager.GetLogger().i("CAMPROC-1",  (SystemClock.ElapsedRealtime() - prevRuntime).ToString());
-                }
+            }
 
             
             var imageView =
@@ -637,7 +638,11 @@ namespace Blurate
                     p.FocusMode = Android.Hardware.Camera.Parameters.FocusModeContinuousPicture;
                 }
                 curCamera.SetParameters(p);
-                curCamera.SetPreviewCallback(this);
+                curCamera.SetPreviewCallbackWithBuffer(this);
+                camBuff1 = new byte[p.PreviewSize.Width * p.PreviewSize.Width * ImageFormat.GetBitsPerPixel(p.PreviewFormat)/8];
+                //camBuff2 = new byte[p.PreviewSize.Width * p.PreviewSize.Width * ImageFormat.GetBitsPerPixel(p.PreviewFormat)/8];
+                curCamera.AddCallbackBuffer(camBuff1);
+                //curCamera.AddCallbackBuffer(camBuff2);
                 curCamera.SetPreviewDisplay(holder);
                 curCamera.StartPreview();
                 prevRuntime = SystemClock.ElapsedRealtime();
@@ -1067,6 +1072,8 @@ namespace Blurate
             }
         }
 
+        byte[] camBuff1;
+        byte[] camBuff2;
         public void startCam2()
         {
             try
@@ -1085,7 +1092,11 @@ namespace Blurate
                     p.FocusMode = Android.Hardware.Camera.Parameters.FocusModeContinuousPicture;
                 }
                 curCamera.SetParameters(p);
-                curCamera.SetPreviewCallback(this);
+                curCamera.SetPreviewCallbackWithBuffer(this);
+                camBuff1 = new byte[p.PreviewSize.Width * p.PreviewSize.Width * ImageFormat.GetBitsPerPixel(p.PreviewFormat) / 8];
+                //camBuff2 = new byte[p.PreviewSize.Width * p.PreviewSize.Width * ImageFormat.GetBitsPerPixel(p.PreviewFormat) / 8];
+                curCamera.AddCallbackBuffer(camBuff1);
+                //curCamera.AddCallbackBuffer(camBuff2);
                 curCamera.SetPreviewDisplay(holder);
 
                 //int orientation = Exif.GetAttributeInt(Android.Media.ExifInterface.TagOrientation, 0);
@@ -1468,16 +1479,25 @@ namespace Blurate
                 share.PutExtra(Intent.ExtraText, message);
                 //share.PutExtra(Intent.ima, message);
                 StartActivity(Intent.CreateChooser(share, "Title of the dialog the system will open"));*/
-
+                File imagesFolder = new File(CacheDir, "images");
+                imagesFolder.Mkdirs();
+                File file = new File(imagesFolder, "blurateShare.jpg");
+                Android.Net.Uri uri;
+                
                 try
                 {
-                    File file = new File(ExternalCacheDir , "blurateShare.jpg");
+                    
                     using (var fOut = new System.IO.FileStream(file.Path, System.IO.FileMode.Create))
                     {
                         try
                         {
                             Bitmap currntBmp = drawableToBitmap(currentImage);
                             currntBmp.Compress(Bitmap.CompressFormat.Jpeg, 95, fOut);
+
+                        }
+                        catch (Exception ex)
+                        {
+                            ;
                         }
                         finally
                         {
@@ -1493,6 +1513,13 @@ namespace Blurate
                     intent.PutExtra(Intent.ExtraSubject, "");
                     intent.PutExtra(Intent.ExtraText, "Check out my Blurate Filter; " + spinner.SelectedItem.ToString());
                     intent.PutExtra(Intent.ExtraStream, Android.Net.Uri.FromFile(file));
+
+                    //uri = Android.Support.V4.Content.FileProvider.GetUriForFile(this, this.PackageName + ".provider", file);
+                    //intent.PutExtra(Intent.ExtraStream, uri);
+                    
+                    //intent.SetDataAndType(uri, "image/jpeg");
+                    intent.SetFlags(ActivityFlags.GrantReadUriPermission);
+
                     //string atribs = System.IO.File.GetAttributes(fileName).ToString();
                     //using (var fd = ContentResolver.OpenFileDescriptor(Android.Net.Uri.Parse(fileName), "r"))
                     //    atribs = fd.StatSize.ToString();
@@ -1504,7 +1531,31 @@ namespace Blurate
                 }
                 catch (Exception e)
                 {
-                    //e.printStackTrace();
+                    try
+                    {
+                        Intent intent = new Intent(Android.Content.Intent.ActionSend);
+                        intent.SetFlags(ActivityFlags.NewTask);
+                        intent.AddFlags(ActivityFlags.GrantReadUriPermission);
+                        intent.PutExtra(Intent.ExtraSubject, "");
+                        intent.PutExtra(Intent.ExtraText, "#" + spinner.SelectedItem.ToString());
+                        //intent.PutExtra(Intent.ExtraStream, Android.Net.Uri.FromFile(file));
+
+                        uri = Android.Support.V4.Content.FileProvider.GetUriForFile(this, this.PackageName + ".provider", file);
+                        intent.PutExtra(Intent.ExtraStream, uri);
+                        //intent.SetDataAndType(uri, "image/jpeg");
+                        intent.SetFlags(ActivityFlags.GrantReadUriPermission);
+
+                        //string atribs = System.IO.File.GetAttributes(fileName).ToString();
+                        //using (var fd = ContentResolver.OpenFileDescriptor(Android.Net.Uri.Parse(fileName), "r"))
+                        //    atribs = fd.StatSize.ToString();
+
+                        //if (atribs.Equals(""))
+                        intent.SetType("image/jpeg");
+                        StartActivityForResult(intent, 0);
+                    }
+                    catch
+                    {
+                    }
                 }
 
             };
@@ -2217,8 +2268,9 @@ namespace Blurate
                     //currentOrigImage.Dispose();
                     //currentOrigImage = currentImage;
                     //toolStripStatusLabel1.Text = stopwatch.ElapsedMilliseconds + " ms - " + toolStripComboBox1.Text;
-
+                    GC.Collect();
                     _queue.Finish();
+                    LogManager.GetLogger().i("CAMPROC-r:", (SystemClock.ElapsedRealtime() - prevRuntime).ToString());
                     //_queue.CopyImageToBuffer(_clooImageByteIntermediate[0], final_output, null);
                     //currentImage.Dispose();
 
@@ -2424,10 +2476,10 @@ namespace Blurate
                         //find best place to insert...
                         /*int xIdx = int.Parse(comBreakdown[0]);
                         int yIdx = int.Parse(comBreakdown[1]);
-                        int flatIdx = xIdx + 1000 * yIdx;
+                        int flatIdx = yIdx + 1000 * xIdx;
                         int bIdx = convolvLis.Count;
                         for (int fidx = 0; fidx < convolvLis.Count; fidx++)
-                            if (flatIdx < convolvLis[fidx][0] + 1000 * convolvLis[fidx][1])
+                            if (flatIdx < convolvLis[fidx][1] + 1000 * convolvLis[fidx][0])
                             { bIdx = fidx; break; }
                         convolvLis.Insert(bIdx, new int[3] { xIdx, yIdx, int.Parse(comBreakdown[2]) });*/
 
@@ -2547,7 +2599,7 @@ namespace Blurate
                                  + "    float pixel_diffG = fabs(pixel_orig.y- (float)" + compY + ");\n"
                                  + "    float pixel_diffB = fabs(pixel_orig.z- (float)" + compZ + ");\n"
                                  + "    float pixel_diffA = fabs(pixel_orig.w- (float)" + compW + ");\n"
-                                 + "    if ((pixel_diffR<" + origColorCheckLimits[0] + ")&&(pixel_diffG<" + origColorCheckLimits[1] + ")&&(pixel_diffB<" + origColorCheckLimits[2] + " )&&(pixel_diffA<" + origColorCheckLimits[3] + ")){\n\t";
+                                 + "    if ((pixel_diffR<" + origColorCheckLimits[0] + ")&&(pixel_diffG<" + origColorCheckLimits[1] + ")&&(pixel_diffB<" + origColorCheckLimits[2] + " )" /*&&(pixel_diffA<" + origColorCheckLimits[3] + ")"*/  + "){\n\t";
                     }
                     else if (testOrigColor == 2) //PrcntDiffThrsh
                     {
@@ -2556,7 +2608,7 @@ namespace Blurate
                                 + "    float pixel_prcntDiffG = fabs((pixel_orig.y-(float)" + compY + ")/" + compY + ")*100;\n"
                                 + "    float pixel_prcntDiffB = fabs((pixel_orig.z-(float)" + compZ + ")/" + compZ + ")*100;\n"
                                 + "    float pixel_prcntDiffA = fabs((pixel_orig.w-(float)" + compW + ")/" + compW + ")*100;\n"
-                                + "    if ((pixel_prcntDiffR<" + origColorCheckLimits[0] + ")&&(pixel_prcntDiffG<" + origColorCheckLimits[1] + ")&&(pixel_prcntDiffB<" + origColorCheckLimits[2] + " )&&(pixel_prcntDiffA<" + origColorCheckLimits[3] + ")){\n\t";
+                                + "    if ((pixel_prcntDiffR<" + origColorCheckLimits[0] + ")&&(pixel_prcntDiffG<" + origColorCheckLimits[1] + ")&&(pixel_prcntDiffB<" + origColorCheckLimits[2] + " )" /*"&&(pixel_prcntDiffA<" + origColorCheckLimits[3] + ")" */ + "){\n\t";
                     }
                 }
 
@@ -2580,9 +2632,9 @@ namespace Blurate
                     for (int c = 0; c < convolvLis.Count; c++)
                     {
                         KernelString += "    float4 pixel" + c + " = read_imagef(inputImage,sampler,(int2)(i" + ((convolvLis[c][0] > 0) ? "+" + convolvLis[c][0] : "-" + (0 - convolvLis[c][0])) + ",j" + ((convolvLis[c][1] >= 0) ? "+" + convolvLis[c][1] : "-" + (0 - convolvLis[c][1])) + "));\n";
-                    }
-                    for (int c = 0; c < convolvLis.Count; c++)
-                    {
+                   // }
+                   // for (int c = 0; c < convolvLis.Count; c++)
+                   // {
                         if (testSrcColor != -1)
                         {
                             string compX = ((srcColorCheck.Length == 4) ? srcColorCheck[0] : "pixel_orig.x");
@@ -2596,7 +2648,7 @@ namespace Blurate
                                              + "    float pixel" + c + "_diffG = fabs(pixel" + c + ".y- (float)" + compY + ");\n"
                                              + "    float pixel" + c + "_diffB = fabs(pixel" + c + ".z- (float)" + compZ + ");\n"
                                              + "    float pixel" + c + "_diffA = fabs(pixel" + c + ".w- (float)" + compW + ");\n"
-                                             + "   if ((pixel" + c + "_diffR<" + srcColorCheckLimits[0] + ")&& (pixel" + c + "_diffG<" + srcColorCheckLimits[1] + ")&&(pixel" + c + "_diffB<" + srcColorCheckLimits[2] + " )&&(pixel" + c + "_diffA<" + srcColorCheckLimits[3] + ")){\n\t";
+                                             + "   if ((pixel" + c + "_diffR<" + srcColorCheckLimits[0] + ")&& (pixel" + c + "_diffG<" + srcColorCheckLimits[1] + ")&&(pixel" + c + "_diffB<" + srcColorCheckLimits[2] + " )" /*&&(pixel" + c + "_diffA<" + srcColorCheckLimits[3] + ")"*/ + "){\n\t";
                             }
                             else if (testSrcColor == 2) //PrcntDiffThrsh
                             {
@@ -2604,7 +2656,7 @@ namespace Blurate
                                                 + "    float pixel" + c + "_prcntDiffG = fabs((pixel" + c + ".y-(float)" + compY + ")/" + compY + ")*100;\n"
                                                 + "    float pixel" + c + "_prcntDiffB = fabs((pixel" + c + ".z-(float)" + compZ + ")/" + compZ + ")*100;\n"
                                                 + "    float pixel" + c + "_prcntDiffA = fabs((pixel" + c + ".w-(float)" + compW + ")/" + compW + ")*100;\n"
-                                                + "   if ((pixel" + c + "_prcntDiffR<" + srcColorCheckLimits[0] + ")&& (pixel" + c + "_prcntDiffG<" + srcColorCheckLimits[1] + ")&&(pixel" + c + "_prcntDiffB<" + srcColorCheckLimits[2] + " )&&(pixel" + c + "_prcntDiffA<" + srcColorCheckLimits[3] + ")){\n\t";
+                                                + "   if ((pixel" + c + "_prcntDiffR<" + srcColorCheckLimits[0] + ")&& (pixel" + c + "_prcntDiffG<" + srcColorCheckLimits[1] + ")&&(pixel" + c + "_prcntDiffB<" + srcColorCheckLimits[2] + " )" /*&&(pixel" + c + "_prcntDiffA<" + srcColorCheckLimits[3] + ")" */ + "){\n\t";
                             }
                         }
 
@@ -2645,7 +2697,7 @@ namespace Blurate
                                              + "    float pixel" + c + "_diffG = fabs(pixel" + c + ".y- (float)" + compY + ");\n"
                                              + "    float pixel" + c + "_diffB = fabs(pixel" + c + ".z- (float)" + compZ + ");\n"
                                              + "    float pixel" + c + "_diffA = fabs(pixel" + c + ".w- (float)" + compW + ");\n"
-                                             + "   if ((pixel" + c + "_diffR<" + srcColorCheckLimits[0] + ")&& (pixel" + c + "_diffG<" + srcColorCheckLimits[1] + ")&&(pixel" + c + "_diffB<" + srcColorCheckLimits[2] + " )&&(pixel" + c + "_diffA<" + srcColorCheckLimits[3] + ")){\n\t";
+                                             + "   if ((pixel" + c + "_diffR<" + srcColorCheckLimits[0] + ")&& (pixel" + c + "_diffG<" + srcColorCheckLimits[1] + ")&&(pixel" + c + "_diffB<" + srcColorCheckLimits[2] + " )" /*"&&(pixel" + c + "_diffA<" + srcColorCheckLimits[3] + ")" */ + "){\n\t";
                             }
                             else if (testSrcColor == 2) //PrcntDiffThrsh
                             {
@@ -2653,7 +2705,7 @@ namespace Blurate
                                                 + "    float pixel" + c + "_prcntDiffG = fabs((pixel" + c + ".y-(float)" + compY + ")/" + compY + ")*100;\n"
                                                 + "    float pixel" + c + "_prcntDiffB = fabs((pixel" + c + ".z-(float)" + compZ + ")/" + compZ + ")*100;\n"
                                                 + "    float pixel" + c + "_prcntDiffA = fabs((pixel" + c + ".w-(float)" + compW + ")/" + compW + ")*100;\n"
-                                                + "   if ((pixel" + c + "_prcntDiffR<" + srcColorCheckLimits[0] + ")&& (pixel" + c + "_prcntDiffG<" + srcColorCheckLimits[1] + ")&&(pixel" + c + "_prcntDiffB<" + srcColorCheckLimits[2] + " )&&(pixel" + c + "_prcntDiffA<" + srcColorCheckLimits[3] + ")){\n\t";
+                                                + "   if ((pixel" + c + "_prcntDiffR<" + srcColorCheckLimits[0] + ")&& (pixel" + c + "_prcntDiffG<" + srcColorCheckLimits[1] + ")&&(pixel" + c + "_prcntDiffB<" + srcColorCheckLimits[2] + " )" /*"&&(pixel" + c + "_prcntDiffA<" + srcColorCheckLimits[3] + ")*/ + "){\n\t";
                             }
                         }
 

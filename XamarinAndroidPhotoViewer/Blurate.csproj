@@ -152,4 +152,7 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\snapCam2.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\xml\provider_paths.xml" />
+  </ItemGroup>
 </Project>
