@@ -835,7 +835,60 @@ namespace Blurate
                 }
                 catch
                 {
-                    imageView.SetImageURI(data.Data);
+                    if (System.IO.File.Exists(data.Data.Path))
+                    {
+                        var fileUrl = GetExternalFilesDir(data.Data.Path);
+                        string currentInputFile = data.Data.Path;
+
+                        string importedFltr = BlrtkrnlRdWr.ImportBlrtkrnl(currentInputFile);
+                        if (importedFltr == null) return;
+                        //bool changeInProgress = true;
+                        //string newFilter = importedFltr.Split('=')[0].Trim();
+                        DataHolder.setData(importedFltr);
+                    }
+                    else
+                    {
+                        Intent i = data;
+                        if (i == null) return;
+                        Android.Net.Uri u = i.Data;
+                        if (u == null) return;
+                        String scheme = u.Scheme;
+
+                        if (ContentResolver.SchemeContent.Equals(scheme))
+                        {
+                            try
+                            {
+                                ContentResolver cr = ContentResolver;
+                                Android.Content.Res.AssetFileDescriptor afd = cr.OpenAssetFileDescriptor(u, "r");
+                                long length = afd.Length;
+                                byte[] filedata = new byte[(int)length];
+                                System.IO.Stream is_ = cr.OpenInputStream(u);
+                                if (is_ == null) return;
+                                try
+                                {
+                                    is_.Read(filedata, 0, (int)length);
+                                    var str = BlrtkrnlRdWr.ImportBlrtkrnl_fromByteArray(filedata);
+                                    //var str = System.Text.Encoding.Default.GetString(filedata);
+                                    if (str == null)
+                                    {
+                                        Android.Graphics.Bitmap tempCMp = Android.Graphics.BitmapFactory.DecodeByteArray(filedata, 0, (int)length);
+                                        DataHolder.setImage(tempCMp);
+                                    }
+                                    DataHolder.setData(str);
+                                    //StartActivity(data);
+                                }
+                                catch (Exception e)
+                                {
+                                    imageView.SetImageURI(data.Data); //last resort
+                                }
+                            }
+                            catch (Exception e)
+                            {
+                                imageView.SetImageURI(data.Data); //last resort
+                            }
+                        }
+                    }
+                    
                 }
             }
         }
@@ -1323,6 +1376,7 @@ namespace Blurate
             snapButton = FindViewById<ImageButton>(Resource.Id.snapButton);
             imptButton = FindViewById<ImageButton>(Resource.Id.importButton);
             snapButton.Visibility = ViewStates.Gone;
+            const int PICKFILE_RESULT_CODE = 1;
 
             imptButton.Click += delegate
             {
@@ -1336,11 +1390,11 @@ namespace Blurate
             imptButton.LongClick += delegate
             {
                 Intent intent = new Intent();
-                intent.SetAction(Android.Content.Intent.ActionView);
+                intent.SetAction(Android.Content.Intent.ActionGetContent);
                 var data = Android.Net.Uri.Parse(Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDownloads).AbsolutePath);
                 String type = "*/*";
                 intent.SetDataAndType(data, type);
-                StartActivity(intent);
+                StartActivityForResult(intent, PICKFILE_RESULT_CODE);
             };
 
             snapButton.Click += delegate

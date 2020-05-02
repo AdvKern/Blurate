@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="1.0.12" package="com.advancedkernels.blurate" android:label="blurate" android:name="blurate" android:installLocation="auto" android:largeHeap="true" android:icon="@drawable/icon" android:versionCode="13">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="1.0.13" package="com.advancedkernels.blurate" android:label="blurate" android:name="blurate" android:installLocation="auto" android:largeHeap="true" android:icon="@drawable/icon" android:versionCode="14">
 	<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="27" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
@@ -84,6 +84,7 @@
 			</intent-filter>
 			<intent-filter android:icon="@drawable/icon" android:label="blurate">
 				<action android:name="android.intent.action.VIEW" />
+				<action android:name="android.intent.action.PICK" />
 				<category android:name="android.intent.category.DEFAULT" />
 				<category android:name="android.intent.category.BROWSABLE" />
 				<data android:scheme="content" />
